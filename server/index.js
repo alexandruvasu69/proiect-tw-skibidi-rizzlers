@@ -8,6 +8,7 @@ const User = require("./database/models/User.js");
 const Conference = require("./database/models/Conference.js");
 const { verifyToken } = require("./utils.js");
 const Article = require("./database/models/Article.js");
+const articleRoutes = require("./routes/articles.routes.js");
 
 const app = express();
 dotenv.config();
@@ -18,6 +19,48 @@ User.hasMany(Conference, { foreignKey: "organizerId" });
 User.hasMany(Article, {foreignKey: "authorId"});
 Conference.hasMany(Article, {foreignKey: "conferenceId"});
 
+Conference.belongsToMany(User, {
+    through: "ConferenceAuthors",
+    as: "authors",
+    foreignKey: "conferenceId",
+    otherKey: "userId"
+});
+
+User.belongsToMany(Conference, {
+    through: "ConferenceAuthors",
+    as: "authoredConferences",
+    foreignKey: "userId",
+    otherKey: "conferenceId"
+});
+
+Conference.belongsToMany(User, {
+    through: "ConferenceReviewers",
+    as: "reviewers",
+    foreignKey: "conferenceId",
+    otherKey: "userId"
+});
+
+User.belongsToMany(Conference, {
+    through: "ConferenceReviewers",
+    as: "reviewedConferences",
+    foreignKey: "userId",
+    otherKey: "conferenceId"
+});
+
+Article.belongsToMany(User, {
+    through: "ArticleReviewers",
+    as: "reviewers",
+    foreignKey: "articleId",
+    otherKey: "userId"
+});
+
+User.belongsToMany(Article, {
+    through: "ArticleReviewers",
+    as: "reviewedArticles",
+    foreignKey: "userId",
+    otherKey: "articleId"
+});
+
 app.use(cors({
     origin: "http://localhost:5173"
 }));
@@ -27,6 +70,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/conferences", verifyToken, conferenceRoutes);
+app.use("/articles", verifyToken, articleRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port http://127.0.0.1:${PORT}`);
