@@ -30,7 +30,9 @@ router.post("/login", async (req, res) => {
             expiresIn: "1h"
         });
 
-        return res.status(200).json({success: true, message: "User logged in", data: {token}});
+        delete user.dataValues.password;
+
+        return res.status(200).json({success: true, message: "User logged in", data: { token, user }});
     } catch (error) {
         res.status(400).json({error: error});
     }
@@ -47,6 +49,26 @@ router.post("/register", async (req, res) => {
         res.status(400).json({error: error});
     }
 
+});
+
+router.post("/check", (req,res) => {
+    try {
+        const {token} = req.body;
+
+        if(!token) {
+            return res.status(400).json({success: false, message: "Token not found", data: {}});
+        }
+
+        const validToken = jwt.verify(token, process.env.TOKEN_SECRET);
+
+        if(!validToken) {
+            return res.status(400).json({success: true, message: "Valid token", data: {token}});
+        }
+
+        res.status(200).json({success: true, message: "Valid token", data: {token}});
+    } catch (error) {
+        res.status(400).json({success: false, message: "Server error: " + error, data: {}});
+    }
 });
 
 module.exports = router;

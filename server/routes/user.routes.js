@@ -18,6 +18,23 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/reviewers", async (req, res) => {
+    try {
+        const users = await User.findAll({
+            where: {
+                role: "reviewer"
+            },
+            attributes: {
+                exclude: ["password"]
+            }
+        });
+
+        res.status(200).json(users);
+    } catch(error) {
+        res.status(400).json({error: error});
+    }
+});
+
 router.get("/:id", async (req, res) => {
     try {
         const id = req.params.id;
