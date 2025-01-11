@@ -13,6 +13,10 @@ const Review = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        comments: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         status: {
             type: DataTypes.ENUM,
             values: ["opened", "in_progress", "closed"],
@@ -24,5 +28,9 @@ const Review = sequelize.define(
         }
     }
 );
+
+Review.beforeCreate((review) => {
+    review.status = "opened";
+});
 
 module.exports = Review;

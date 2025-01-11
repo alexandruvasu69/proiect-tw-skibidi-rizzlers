@@ -9,6 +9,8 @@ const Conference = require("./database/models/Conference.js");
 const { verifyToken } = require("./utils.js");
 const Article = require("./database/models/Article.js");
 const articleRoutes = require("./routes/articles.routes.js");
+const Review = require("./database/models/Review.js");
+const reviewRoutes = require("./routes/reviews.routes.js");
 
 const app = express();
 dotenv.config();
@@ -17,7 +19,13 @@ const PORT = process.env.PORT || 3001;
 
 User.hasMany(Conference, { foreignKey: "organizerId" });
 User.hasMany(Article, {foreignKey: "authorId"});
+Article.belongsTo(User, { as: "author", foreignKey: "authorId" });
+User.hasMany(Review, {foreignKey: "reviewerId"});
+Review.belongsTo(User, { as: "reviewer", foreignKey: "reviewerId" });
 Conference.hasMany(Article, {foreignKey: "conferenceId"});
+Article.hasMany(Review, {as: "reviews", foreignKey: "articleId"});
+Review.belongsTo(Article, { foreignKey: "articleId"});
+
 
 Conference.belongsToMany(User, {
     through: "ConferenceAuthors",
@@ -71,6 +79,7 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/conferences", verifyToken, conferenceRoutes);
 app.use("/articles", verifyToken, articleRoutes);
+app.use("/reviews", verifyToken, reviewRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port http://127.0.0.1:${PORT}`);

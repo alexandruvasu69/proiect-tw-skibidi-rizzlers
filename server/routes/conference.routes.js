@@ -25,11 +25,26 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const conference = await Conference.findByPk(id);
+
+        if(!conference) {
+            return res.status(400).json({ success: false, message: "ERROR", data: {} });
+        }
+
+        res.status(200).json({ success: true, message: "Success", data: { conference } });
+    } catch (error) {
+        res.status(400).json({ success: false, message: error, data: {} });
+    }
+});
+
 router.post("/", async (req, res) => {
     try {
         const userId = req.userId;
         const role = req.role;
-        const { name, description, reviewerIds } = req.body;
+        const { title, description, reviewerIds } = req.body;
 
         const user = await User.findByPk(userId);
 
@@ -54,7 +69,7 @@ router.post("/", async (req, res) => {
         }
 
         const conference = await Conference.create({
-            name: name,
+            name: title,
             description: description,
             organizerId: userId
         });
@@ -127,6 +142,11 @@ router.get("/:id/articles", async (req, res) => {
                         { authorId: userId }
                     ]
                 },
+                include: [{
+                    model: User,
+                    as: "author",
+                    attributes: ["id", "username"] // Alege doar câmpurile necesare
+                }]
             });
         } else if(role === "reviewer") {
             articles = await Article.findAll({
@@ -143,12 +163,22 @@ router.get("/:id/articles", async (req, res) => {
                     attributes: [],
                     where: { id: userId },
                     required: false
+                },
+                {
+                    model: User,
+                    as: "author", // Include autorul
+                    attributes: ["id", "username"] // Utilizează atributele corecte
                 }],
                 distinct: true,
             });
         } else if (role === "organizer") {
             articles = await Article.findAll({
                 where: { conferenceId: conferenceId },
+                include: [{
+                    model: User,
+                    as: "author",
+                    attributes: ["id", "username"] // Alege doar câmpurile necesare
+                }]
             });
         }
 
@@ -195,9 +225,61 @@ router.post("/:id/articles", async (req, res) => {
         const reviewers = await conference.getReviewers();
         await article.addReviewers(pickTwoRandom(reviewers));
 
+        article.update({
+            status: "in_review"
+        });
+
         res.status(200).json({ success: true, message: "Article created", data: {article} });
     } catch (error) {
         res.status(400).json({ success: false, message: error, data: {} });
+    }
+});
+
+router.get("/:conferenceId/check-registered", async (req, res) => {
+    try {
+        const conferenceId = req.params.conferenceId;
+        const userId = req.userId;
+
+        const conference = await Conference.findByPk(conferenceId);
+        if (!conference) {
+            return res.status(400).json({
+                success: false,
+                message: "Conference not found",
+                data: {}
+            });
+        }
+
+        const user = await User.findByPk(userId);
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "User not found",
+                data: {}
+            });
+        }
+
+        const registeredAuthors = await conference.getAuthors();
+        const registeredAuthorsIds = registeredAuthors.map(author => author.dataValues.id);
+
+        if(!registeredAuthorsIds.includes(userId)) {
+            return res.status(200).json({
+                success: false,
+                message: "Author not registered to conference",
+                data: {}
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Author registered to conference",
+            data: {}
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: "Server error: " + error,
+            data: {}
+        });
     }
 });
 

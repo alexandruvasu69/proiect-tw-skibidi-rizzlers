@@ -1,0 +1,67 @@
+/* src/styles/Login.css */
+
+/* Stiluri specifice pentru componenta Login */
+
+.login-box {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 400px;
+    margin: 60px auto;
+}
+
+.login-box .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.login-box .logo i {
+    font-size: 2rem;
+    color: #007BFF;
+    margin-right: 10px;
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-box .input-group {
+    position: relative;
+}
+
+.login-box .input-group label {
+    display: none; /* Etichetele sunt ascunse pentru un design mai curat */
+}
+
+.login-box .input-group i {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #007BFF;
+}
+
+.login-box .input-group input {
+    padding: 10px 10px 10px 40px;
+}
+
+.login-box .links {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.login-box .links a {
+    color: #007BFF;
+    text-decoration: none;
+    margin: 0 5px;
+    transition: color 0.3s ease;
+}
+
+.login-box .links a:hover {
+    color: #0056b3;
+}
