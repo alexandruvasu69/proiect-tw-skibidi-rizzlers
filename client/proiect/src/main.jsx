@@ -7,9 +7,7 @@ import store from './store/store.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 createRoot(document.getElementById('root')).render(
-  // <Fragment>
     <Provider store={store}>
       <App />
     </Provider>
-  // </Fragment>,
 )

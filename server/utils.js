@@ -32,7 +32,6 @@ const createUser = async ({ username, password, role }) => {
         password: hash
     });
 
-    // Eliminăm parola din răspuns
     delete user.dataValues.password;
 
     return user;

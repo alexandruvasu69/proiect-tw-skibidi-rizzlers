@@ -76,7 +76,6 @@ function Homepage() {
                 </button>
             )}
 
-            {/* Modalul de adăugare conferință */}
             <AddConferenceModal isOpen={isModalOpen} onClose={closeModal} />
         </>
     )
