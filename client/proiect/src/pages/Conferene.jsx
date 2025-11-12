@@ -53,8 +53,7 @@ function Conference() {
                         onClick={handleRegister} 
                         disabled={loadingRegister || successRegister}
                     >
-                         {loadingRegister ? 'Se încarcă...' : successRegister ? 'Înregistrat cu succes!' : 'Înregistrează-te la Conferință'} 
-                        Inregistrare
+                         {loadingRegister ? 'Loading...' : successRegister ? 'Registered!' : 'Register to Conference'} 
                     </button>) }
                      {errorRegister && <p className="error">{errorRegister}</p>}
                     {successRegister && <p className="success">Te-ai înregistrat cu succes la conferință!</p>} 
@@ -65,10 +64,10 @@ function Conference() {
                     {!loading && articles.map(article => (
                         <div key={article.id} className="article-card" onClick={() => navigator(`/articles/${article.id}`)}>
                             <h2 className="article-title">{article.title}</h2>
-                            <p className="article-author"><strong>Autor:</strong> {article.author.username}</p>
+                            <p className="article-author"><strong>Author:</strong> {article.author.username}</p>
                             <p className="article-description">{article.description}</p>
                             <p className="article-description">Status: {article.status}</p>
-                            <a  className="read-more-btn">Citește mai mult</a>
+                            <a  className="read-more-btn">Read more</a>
                         </div>
                     ))}
                 </div>

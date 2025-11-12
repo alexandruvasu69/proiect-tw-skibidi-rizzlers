@@ -44,7 +44,6 @@ function useFetchConferences() {
         if(loggedIn) {
             fetchConferences();
         } else {
-            // Dacă ești delogat, resetezi starea
             setConferences([]);
             setLoading(false);
             setError(null);

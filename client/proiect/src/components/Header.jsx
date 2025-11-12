@@ -40,7 +40,7 @@ function Header() {
             </div>
             <nav>
                 <ul>
-                    <li><p onClick={() => navigator("/")}>Acasa</p></li>
+                    <li><p onClick={() => navigator("/")}>Home</p></li>
                     { !loggedIn && <li><a href="/login" className="btn">Login</a></li> }
                     {loggedIn && (
                     <li className="notifications-container">

@@ -24,9 +24,9 @@ router.get("/:id", async (req, res) => {
                 model: Review,
                 as: "reviews",
                 include: [{
-                    model: User, // dacă dorești să incluzi și detalii despre recenzor
+                    model: User,
                     as: "reviewer",
-                    attributes: ["id", "username"] // selectează doar câmpurile necesare
+                    attributes: ["id", "username"]
                 }],
             }],
         });
@@ -98,9 +98,9 @@ router.put("/:articleId", async (req, res) => {
                 model: Review,
                 as: "reviews",
                 include: [{
-                    model: User, // dacă dorești să incluzi și detalii despre recenzor
+                    model: User,
                     as: "reviewer",
-                    attributes: ["id", "username"] // selectează doar câmpurile necesare
+                    attributes: ["id", "username"]
                 }],
             }],
         });
@@ -211,8 +211,8 @@ router.post("/:articleId/reviews", async (req, res) => {
             include: [
                 {
                     model: User,
-                    as: "reviewer", // sau ce alias ai definit în asociere
-                    attributes: ["id", "username"], // ce câmpuri vrei să iei
+                    as: "reviewer",
+                    attributes: ["id", "username"],
                 },
             ],
         });

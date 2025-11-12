@@ -26,13 +26,11 @@ function WriteArticle() {
 
     useEffect(() => {
         if (addArticleSuccess) {
-            // Resetarea formularului după succes
             setFormData({
                 title: '',
                 description: '',
                 body: ''
             });
-            // Navighează la pagina articolului nou creat
             navigate(`/articles/${article.id}`);
         }
     }, [addArticleSuccess]);
@@ -59,22 +57,19 @@ function WriteArticle() {
     return (
         <>
             <Header />
-
-            {/* Secțiunea de introducere (Hero) */}
             <section className="hero-section">
                 <div className="hero-content">
-                    <h1>Scrie un Nou Articol</h1>
-                    <p>Contribuie la conferința noastră și împărtășește-ți cunoștințele cu comunitatea.</p>
+                    <h1>Write a new Article</h1>
+                    <p>Contribute to our conference and share your knowledge with the community</p>
                 </div>
             </section>
 
-            {/* Containerul principal al formularului */}
             <div className="write-article-container">
                 <form className="write-article-form" onSubmit={handleSubmit}>
-                    <h2>Completează Detaliile Articolului</h2>
+                    <h2>Complete Article Details</h2>
                     
                     <div className="form-group">
-                        <label htmlFor="title">Titlu</label>
+                        <label htmlFor="title">Title</label>
                         <input 
                             type="text" 
                             id="title" 
@@ -82,40 +77,40 @@ function WriteArticle() {
                             value={formData.title} 
                             onChange={handleChange} 
                             required 
-                            placeholder="Introdu titlul articolului"
+                            placeholder="Add article title"
                         />
                     </div>
                     
                     <div className="form-group">
-                        <label htmlFor="description">Descriere</label>
+                        <label htmlFor="description">Description</label>
                         <textarea 
                             id="description" 
                             name="description"
                             value={formData.description} 
                             onChange={handleChange} 
                             required 
-                            placeholder="O scurtă descriere a articolului"
+                            placeholder="A short description of the article"
                             rows="3"
                         ></textarea>
                     </div>
                     
                     <div className="form-group">
-                        <label htmlFor="body">Conținut</label>
+                        <label htmlFor="body">Content</label>
                         <textarea 
                             id="body" 
                             name="body"
                             value={formData.body}
                             onChange={handleChange} 
                             required 
-                            placeholder="Scrie conținutul articolului aici"
+                            placeholder="Write article content here"
                             rows="6"
                         ></textarea>
                     </div>
                     
                     { !articleState ? <button type="submit" className="btn" disabled={addArticleLoading}>
-                        {addArticleLoading ? 'Se încarcă...' : 'Adaugă Articol'}
+                        {addArticleLoading ? 'Loading...' : 'Add article'}
                     </button> : <button type="submit" className="btn" disabled={addArticleLoading}>
-                        {addArticleLoading ? 'Se încarcă...' : 'Editeaza'}
+                        {addArticleLoading ? 'Loading...' : 'Edit article'}
                     </button>}
                     
                     {addArticleError && <p className="error">{addArticleError}</p>}

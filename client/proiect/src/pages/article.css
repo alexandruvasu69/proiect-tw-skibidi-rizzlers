@@ -37,6 +37,10 @@
     color: #444444;
     text-align: justify;
     font-family: 'Arial', sans-serif;
+    white-space: pre-line;
+    word-wrap: break-word;
+    tab-size: 4;
+    -moz-tab-size: 4;
 }
 
 .review-btn {
@@ -71,7 +75,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Container pentru întreaga secțiune de review-uri */
 .reviews-section {
     margin: 40px auto;
     max-width: 90%;

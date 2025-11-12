@@ -25,7 +25,6 @@ const useAddReview = () => {
 
             if (data.success) {
                 setAddReviewSuccess(true);
-                // setReview(data.data);
                 return data.data;
             } else {
                 setAddReviewError(data.message);

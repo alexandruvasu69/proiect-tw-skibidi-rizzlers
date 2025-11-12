@@ -8,7 +8,7 @@ function AddReviewModal({ isOpen, onClose, onAddReview, conferenceId, articleId 
     const [formData, setFormData] = useState({
         header: '',
         comments: '',
-        status: 'opened', // Valoarea implicită a enum-ului
+        status: 'opened',
     });
 
     const { addReview, addReviewLoading, addReviewError, addReviewSuccess } = useAddReview();
@@ -46,7 +46,7 @@ function AddReviewModal({ isOpen, onClose, onAddReview, conferenceId, articleId 
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <span className="close-button" onClick={onClose}>&times;</span>
-                <h2>Adaugă un Review</h2>
+                <h2>Add a review</h2>
                 <form className="add-review-form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="header">Titlu</label>
@@ -85,7 +85,7 @@ function AddReviewModal({ isOpen, onClose, onAddReview, conferenceId, articleId 
                         </select>
                     </div>
                     <button type="submit" className="btn" disabled={addReviewLoading}>
-                        {addReviewLoading ? 'Se încarcă...' : 'Adaugă Review'}
+                        {addReviewLoading ? 'Loading' : 'Add a review'}
                     </button>
                     {addReviewError && <p className="error">{addReviewError}</p>}
                 </form>

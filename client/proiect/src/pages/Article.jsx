@@ -1,18 +1,16 @@
-// src/pages/Article.jsx
-
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import useGetArticle from "../hooks/useGetArticle";
-import AddReviewModal from "../components/AddReviewModal"; // Importă modalul
+import AddReviewModal from "../components/AddReviewModal";
 import './article.css';
 import { useNavigate } from "react-router-dom";
 import useEditReview from "../hooks/useEditReview";
 import useEditArticle from "../hooks/useEditArticle";
 
 function Article() {
-    const { id } = useParams(); // Presupunem că `id` este `articleId`
+    const { id } = useParams();
     const navigator = useNavigate();
 
     const { loggedIn, role, userId } = useSelector(state => state.global);
@@ -68,10 +66,7 @@ function Article() {
     }
 
     const handleEditReview = async (reviewId, status) => {
-
-        console.log("EDIT REVIEW: ", articleState);
         const editedReview = await editReview({ status: status }, reviewId);
-        console.log("EDITED REVIEW: ", editedReview.fullReview);
         setArticleState((prev) => {
             if (!prev || !prev.reviews) {
               return prev;
@@ -111,7 +106,7 @@ function Article() {
 
             {articleState?.reviews && articleState?.reviews.length > 0 && (
                 <div className="reviews-section">
-                    <h2>Review-uri</h2>
+                    <h2>Reviews</h2>
                     {articleState?.reviews.map(review => (
                         <div className={`review-container 
                             ${review.status === "in_progress" ? "in-progress" : ""}
@@ -127,11 +122,11 @@ function Article() {
                                     (() => {
                                         switch (review.status) {
                                           case "opened":
-                                            return <p className="status-text">Deschis</p>;
+                                            return <p className="status-text">Open</p>;
                                           case "in_progress":
-                                            return <p className="status-text">Asteapta aprobare</p>;
+                                            return <p className="status-text">Waiting approval</p>;
                                           case "closed":
-                                            return <p className="status-text">Inchis</p>;
+                                            return <p className="status-text">Closed</p>;
                                           default:
                                             return;
                                         }
@@ -139,8 +134,7 @@ function Article() {
                                 }</div>
                             </div>
                             <p className="review-comment">{review.comments}</p>
-                            <p className="review-status">Status: {review.status}</p>
-                            <p className="review-author">Recenzor: {review.reviewer.username}</p>
+                            <p className="review-author">Reviewer: {review.reviewer.username}</p>
 
                             { role == "reviewer" && userId === review.reviewer.id && review.status === "in_progress" && <div className="review-actions">
                                 <button className="approve-btn" onClick={async () => handleEditReview(review.id, "closed")}>
@@ -152,12 +146,12 @@ function Article() {
                             </div>}
                             { role === "author" && review.status === "opened" && 
                                 <button className="approve-btn" onClick={async () => handleEditReview(review.id, "in_progress")}>
-                                    Finalizat
+                                    Finalized
                                 </button>
                             }
                             { role === "reviewer" && userId === review.reviewer.id && review.status === "closed" &&
                                 <button className="approve-btn" onClick={() => handleEditReview(review.id, "opened")}>
-                                    Redeschide review
+                                    Reopen review
                                 </button>
                             }
                         </div>
@@ -170,17 +164,17 @@ function Article() {
             {article && (
                 <div className="article-page-container">
                     {userId == article.authorId && <button className="review-btn" onClick={handleEditClick}>
-                           Editeaza
+                           Edit
                         </button>}
                     <div className="article-review-container">
                         {loggedIn && role !== "author" && (
                             <button className="review-btn" onClick={openModal} disabled={!!editReviewLoading||!!editArticleLoading}>
-                                {(editArticleLoading || editReviewLoading) ? "Se incarca..." : "Adaugă Review"}
+                                {(editArticleLoading || editReviewLoading) ? "Loading..." : "Add a review"}
                             </button>
                         )}
                         {loggedIn && role === "reviewer" && articleState?.reviews.every(review => review.status === "closed") && article.status !== "accepted" && (
                             <button className="approve-article-btn" onClick={handleApproveArticle} disabled={!!editArticleLoading}>
-                                {editArticleLoading ? "Se incarca..." : "Aproba articol"}
+                                {editArticleLoading ? "Loading..." : "Approve article"}
                             </button>
                         )}
                     </div>

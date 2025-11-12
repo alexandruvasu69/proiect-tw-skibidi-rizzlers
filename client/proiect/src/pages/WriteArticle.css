@@ -26,7 +26,6 @@
     min-height: calc(100vh - 200px);
 }
 
-/* Formularul în sine */
 .write-article-form {
     background-color: #ffffff;
     padding: 40px 50px;
@@ -48,7 +47,6 @@
     font-family: 'Georgia', serif;
 }
 
-/* Grupuri de formular */
 .form-group {
     margin-bottom: 25px;
 }

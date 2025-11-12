@@ -30,11 +30,11 @@ function Homepage() {
 
                             { conferences.map(conference => {
                                 return <div className="conference-card" key={conference.id} onClick={() => navigator(`/conferences/${conference.id}`)}>
-                                    <img src="https://via.placeholder.com/400x200" alt="Conferință 1" />
+                                    <img src="./public/boost-conference-engagement.jpg" alt="Conferință 1" />
                                     <div className="conference-content">
                                         <h3>{conference.title}</h3>
                                         <p>{conference.description}</p>
-                                        <button className="btn">Detalii</button>
+                                        <button className="btn">Details</button>
                                     </div>
                                 </div>
                             

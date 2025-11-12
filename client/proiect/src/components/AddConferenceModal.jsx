@@ -73,7 +73,7 @@ function AddConferenceModal({ isOpen, onClose }) {
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <span className="close-button" onClick={onClose}>&times;</span>
-                <h2>Adaugă o Conferință</h2>
+                <h2>Add a conference</h2>
                 <form  encType="multipart/form-data" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="title">Titlu</label>
@@ -110,7 +110,7 @@ function AddConferenceModal({ isOpen, onClose }) {
                         />
                     </div>
                     <button type="submit" className="btn" disabled={loading}>
-                        {loading ? 'Se încarcă...' : 'Adaugă Conferința'}
+                        {loading ? 'Loading...' : 'Add a conference'}
                     </button> 
                 </form>
             </div>

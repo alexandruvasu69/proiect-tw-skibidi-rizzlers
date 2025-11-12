@@ -145,7 +145,7 @@ router.get("/:id/articles", async (req, res) => {
                 include: [{
                     model: User,
                     as: "author",
-                    attributes: ["id", "username"] // Alege doar câmpurile necesare
+                    attributes: ["id", "username"]
                 }]
             });
         } else if(role === "reviewer") {
@@ -166,8 +166,8 @@ router.get("/:id/articles", async (req, res) => {
                 },
                 {
                     model: User,
-                    as: "author", // Include autorul
-                    attributes: ["id", "username"] // Utilizează atributele corecte
+                    as: "author",
+                    attributes: ["id", "username"]
                 }],
                 distinct: true,
             });
@@ -177,7 +177,7 @@ router.get("/:id/articles", async (req, res) => {
                 include: [{
                     model: User,
                     as: "author",
-                    attributes: ["id", "username"] // Alege doar câmpurile necesare
+                    attributes: ["id", "username"]
                 }]
             });
         }

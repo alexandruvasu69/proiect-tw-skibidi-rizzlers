@@ -51,8 +51,8 @@ router.put("/:reviewId", async (req, res) => {
             include: [
                 {
                     model: User,
-                    as: "reviewer", // sau ce alias ai definit în asociere
-                    attributes: ["id", "username"], // ce câmpuri vrei să iei
+                    as: "reviewer",
+                    attributes: ["id", "username"],
                 },
             ],
         });
