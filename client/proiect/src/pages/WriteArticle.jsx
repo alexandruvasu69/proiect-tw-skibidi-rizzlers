@@ -1,10 +1,8 @@
-// src/pages/WriteArticle.jsx
-
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import useAddArticle from "../hooks/useAddArticle";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import './WriteArticle.css'; // Importă fișierul CSS pentru stiluri
+import './WriteArticle.css';
 import useEditArticle from "../hooks/useEditArticle";
 
 

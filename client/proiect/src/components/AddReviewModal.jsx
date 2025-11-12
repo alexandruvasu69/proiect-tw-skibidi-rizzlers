@@ -1,5 +1,3 @@
-// src/components/AddReviewModal.jsx
-
 import { useState, useEffect } from 'react';
 import useAddReview from '../hooks/useAddReview';
 import './AddReviewModal.css';
