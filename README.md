@@ -5,6 +5,11 @@ Includes a **custom REST API**, **JWT authentication**, and **role-based access 
 
 ---
 
+## Deployment
+
+### Production Link
+ **Frontend (Vercel)**: https://proiect-tw-skibidi-rizzlers-2.vercel.app/
+
 ## Features
 
 ### 🔐 Authentication & Authorization
