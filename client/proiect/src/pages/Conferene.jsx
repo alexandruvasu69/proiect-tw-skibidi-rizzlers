@@ -31,7 +31,7 @@ function Conference() {
 
     const handleRegister = async () => {
         if (!loggedIn) {
-            alert('Te rugăm să te autentifici pentru a te înregistra la conferință.');
+            alert('Please authenticate in order to register for conference!');
             return;
         }
         await articleRegister(id);

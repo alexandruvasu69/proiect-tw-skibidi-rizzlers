@@ -26,8 +26,8 @@ function Homepage() {
             { error && <p>{error}</p> }
             { success && <main>
                 <section className="conferences">
-                    <div className="container">
-                        <h2>Conferințele Noastre</h2>
+                    <div className="home-container">
+                        <h2>Our conferences</h2>
                         <div className="conference-grid">
 
                             { conferences.map(conference => {

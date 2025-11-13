@@ -12,10 +12,10 @@ function Header() {
     const [showNotifications, setShowNotifications] = useState(false);
 
     const notifications = [
-        { id: 1, text: "Notificare importantă" },
-        { id: 2, text: "Articolul tău a fost aprobat" },
-        { id: 3, text: "Articol respins, necesită modificări" },
-        { id: 4, text: "Urmează o nouă conferință" },
+        { id: 1, text: "Important notification" },
+        { id: 2, text: "Your article was approved" },
+        { id: 3, text: "Rejected article" },
+        { id: 4, text: "New conference added" },
     ];
 
     const toggleNotifications = () => {
@@ -36,7 +36,7 @@ function Header() {
         <div className="container">
             <div className="logo" onClick={() => navigator("/")}>
                 <i className="fas fa-laptop-code"></i>
-                <h1>Conferințe IT</h1>
+                <h1>IT Conferences</h1>
             </div>
             <nav>
                 <ul>
@@ -49,7 +49,7 @@ function Header() {
                         </button>
                         {showNotifications && (
                         <div className="notifications-panel">
-                            <h4>Notificări</h4>
+                            <h4>Notifications</h4>
                             {notifications.length === 0 ? (
                             <p className="no-notifs">Nu există notificări</p>
                             ) : (
